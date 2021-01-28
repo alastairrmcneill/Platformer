@@ -1,12 +1,20 @@
 import pygame
 from Scenes.Manager import Manager
+from Scenes.Splash import Splash
+from Scenes.Intro import Intro
+from Scenes.Game import Game
+from Scenes.End import End
 from Components.Constants import WIN_WIDTH, WIN_HEIGHT
 
 WIN = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
-pygame.display.set_caption("REPLACE ME")
+pygame.display.set_caption("Platformer")
 
-scene_dict = {}             # Dict {"Name": Scene_Class()}
-starting_scene = ""         # Name of the staring scene
+scene_dict = {"Splash": Splash(),
+              "Intro": Intro(),
+              "Game": Game(),
+              "End": End()}
+
+starting_scene = "Splash"
 
 def main():
     clock = pygame.time.Clock()
