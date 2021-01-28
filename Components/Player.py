@@ -7,6 +7,7 @@ class Player:
         self.rect = pygame.rect.Rect(50, 50, 20, 60)
         self.vel_y = 0
         self.jumped = False
+        self.jumpCount = 0
 
     def update(self):
         dx = 0
@@ -14,8 +15,17 @@ class Player:
         # Get key press
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] and not self.jumped:
-            self.vel_y = -15
+            self.jumpCount += 1
+            if self.jumpCount == 1:
+                self.vel_y = -10
+            elif self.jumpCount < 5:
+                self.vel_y -= 2
+            else:
+                self.jumped = True
+        if not keys[pygame.K_SPACE]:
+            self.jumpCount = 0
             self.jumped = True
+
         if keys[pygame.K_RIGHT]:
             dx += 5
         if keys[pygame.K_LEFT]:
@@ -23,8 +33,8 @@ class Player:
 
         # Add Gravity
         self.vel_y += 1
-        if self.vel_y > 10:
-            self.vel_y = 10
+        if self.vel_y > 15:
+            self.vel_y = 15
         dy += self.vel_y
 
         # Check for collisions
