@@ -11,6 +11,7 @@ class Intro(Scene):
 
     def cleanup(self):
         self.done = False
+        self.persist = {"Level": 0}
         return self.persist
 
     def handle_event(self, event):

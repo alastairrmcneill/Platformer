@@ -1,20 +1,36 @@
 import pygame
+from Components.Projectile import Projectile
 from Components.Constants import WHITE, WIN_HEIGHT, TILE_SIZE
 
 class Player:
-    def __init__(self, world):
+    def __init__(self, x, y, world):
         self.world = world
-        self.rect = pygame.rect.Rect(50, 50, 20, 60)
+        self.bullet_group = pygame.sprite.Group()
+        self.rect = pygame.rect.Rect(x, y, 20, 60)
         self.vel_y = 0
         self.jumped = False
         self.jumpForce = 0
+        self.direction = 1
+        self.bulletCount = 0
+        self.shooting = False
+        self.dead = False
+        self.level_complete = False
 
     def update(self):
         dx = 0
         dy = 0
+        self.update_counters()
         # Get key press
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_SPACE] and not self.jumped:
+        if keys[pygame.K_SPACE] and self.bulletCount == 0:
+            if self.direction > 0:
+                bullet = Projectile(self.rect.x + self.rect.width, self.rect.y, self.direction)
+            else:
+                bullet = Projectile(self.rect.x, self.rect.y, self.direction)
+            self.bullet_group.add(bullet)
+            self.shooting = True
+
+        if keys[pygame.K_UP] and not self.jumped:
             self.jumpForce += 1
             if self.jumpForce == 1:
                 self.vel_y = -10
@@ -22,14 +38,16 @@ class Player:
                 self.vel_y -= 2
             else:
                 self.jumped = True
-        if not keys[pygame.K_SPACE]:
+        if not keys[pygame.K_UP]:
             self.jumpForce = 0
             self.jumped = True
 
         if keys[pygame.K_RIGHT]:
             dx += 5
+            self.direction = 1
         if keys[pygame.K_LEFT]:
             dx -= 5
+            self.direction = -1
 
         # Add gravity
         dy = self.add_gravity(dy)
@@ -37,22 +55,29 @@ class Player:
         # Check for tile collisions
         dx, dy = self.check_tile_collisions(dx, dy)
 
+        # Check for collisions with enemies
+        if pygame.sprite.spritecollide(self, self.world.enemy_group, False):
+            self.dead = True
 
         # Check for collisions with lava
-        if pygame.sprite.spritecollide(self, self.world.enemy_group, False):
-            print("Hit enemy")
-
-        # Check for collisions with enemies
         if pygame.sprite.spritecollide(self, self.world.lava_group, False):
-            print("Hit lava")
+            self.dead = True
+
+        # Check for collision with exit
+        if pygame.sprite.spritecollide(self, self.world.exit_group, False) and len(self.world.enemy_group.sprites()) == 0:
+            self.level_complete = True
 
 
-        # Update pos
+        # Update player pos
         self.rect.y += dy
         self.rect.x += dx
 
+        # Update Bullets
+        self.bullet_update()
+
     def draw(self, screen):
         pygame.draw.rect(screen, WHITE, self.rect)
+        self.bullet_group.draw(screen)
 
     def add_gravity(self, dy):
         old_dy = dy
@@ -85,3 +110,27 @@ class Player:
                     self.jumped = False
 
         return new_dx, new_dy
+
+    def update_counters(self):
+        # Update bullet timer
+        if self.shooting:
+            self.bulletCount += 1
+
+            if self.bulletCount > 20 or len(self.bullet_group.sprites()) == 0:
+                self.bulletCount = 0
+                self.shooting = False
+
+
+    def bullet_update(self):
+        self.bullet_group.update()
+
+        for bullet in self.bullet_group:
+            hit = pygame.sprite.spritecollide(bullet, self.world.enemy_group, True)
+            if hit:
+                bullet.kill()
+                continue
+
+            for tile in self.world.tiles:
+                if tile[1].colliderect(bullet.rect):
+                    bullet.kill()
+                    continue
