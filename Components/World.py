@@ -1,11 +1,15 @@
 import pygame
-
+from Components.Lava import Lava
+from Components.Enemy import Enemy
 from Components.Constants import WORLD_DATA, DIRT_IMG, GRASS_IMG, TILE_SIZE
 
 
 class World:
     def __init__(self):
         self.tiles = []
+        self.lava_group = pygame.sprite.Group()
+        self.enemy_group = pygame.sprite.Group()
+
         row_count = 0
         for row in WORLD_DATA:
             col_count = 0
@@ -22,13 +26,22 @@ class World:
                     img_rect.y = row_count * TILE_SIZE
                     tile = (GRASS_IMG, img_rect)
                     self.tiles.append(tile)
+                if elem == 3:
+                    enemy = Enemy(col_count * TILE_SIZE + 2, row_count * TILE_SIZE - 17)
+                    self.enemy_group.add(enemy)
+                if elem == 6:
+                    lava = Lava(col_count * TILE_SIZE, row_count * TILE_SIZE)
+                    self.lava_group.add(lava)
                 col_count += 1
             row_count += 1
 
     def update(self):
-        pass
+        self.enemy_group.update()
 
 
     def draw(self, screen):
         for tile in self.tiles:
             screen.blit(tile[0], tile[1])
+
+        self.lava_group.draw(screen)
+        self.enemy_group.draw(screen)
