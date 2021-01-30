@@ -1,16 +1,19 @@
 import pygame
 from Components.Projectile import Projectile
-from Components.Constants import WHITE, WIN_HEIGHT, TILE_SIZE, BILL_WALKING_IMGS
+from Components.Constants import WHITE, RED, WIN_HEIGHT, TILE_SIZE, BILL_WALKING_IMGS, SYRINGE_IMG
 
 class Player:
     def __init__(self, x, y, world):
         self.world = world
         self.bullet_group = pygame.sprite.Group()
+        self.syringe = SYRINGE_IMG
+        self.syringe_img = self.syringe
         self.IMGS = BILL_WALKING_IMGS
         self.image = self.IMGS[0]
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.syringe_rect = self.syringe.get_rect()
         self.animateCount = 0
         self.animateLoop = 3
         self.vel_y = 0
@@ -26,13 +29,14 @@ class Player:
         dx = 0
         dy = 0
         self.update_counters()
+
         # Get key press
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] and self.bulletCount == 0:
             if self.direction > 0:
-                bullet = Projectile(self.rect.x + self.rect.width, self.rect.y + 21, self.direction)
+                bullet = Projectile(self.rect.x + self.rect.width + self.syringe_rect.width, self.rect.y + 21, self.direction)
             else:
-                bullet = Projectile(self.rect.x, self.rect.y + 21, self.direction)
+                bullet = Projectile(self.rect.x - self.syringe_rect.width, self.rect.y + 21, self.direction)
             self.bullet_group.add(bullet)
             self.shooting = True
 
@@ -69,6 +73,7 @@ class Player:
         if pygame.sprite.spritecollide(self, self.world.lava_group, False):
             self.dead = True
 
+
         # Check for collision with exit
         if pygame.sprite.spritecollide(self, self.world.exit_group, False) and len(self.world.enemy_group.sprites()) == 0:
             self.level_complete = True
@@ -80,11 +85,16 @@ class Player:
         self.rect.y += dy
         self.rect.x += dx
 
+        # Update syringe pos
+        self.update_syringe()
+
         # Update Bullets
         self.bullet_update()
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
+        screen.blit(self.syringe_img, self.syringe_rect)
+        # pygame.draw.rect(screen, WHITE, self.rect, 2)
         self.bullet_group.draw(screen)
 
     def add_gravity(self, dy):
@@ -116,7 +126,6 @@ class Player:
                     new_dy = tile[1].top - self.rect.bottom
                     self.vel_y = 0
                     self.jumped = False
-
         return new_dx, new_dy
 
     def update_counters(self):
@@ -166,3 +175,14 @@ class Player:
                 if tile[1].colliderect(bullet.rect):
                     bullet.kill()
                     continue
+
+    def update_syringe(self):
+        # Update syringe pos
+        if self.direction == 1:
+            self.syringe_rect.x = self.rect.x + self.rect.width
+            self.syringe_img = pygame.transform.flip(self.syringe, False, False)
+        else:
+            self.syringe_rect.x = self.rect.x - self.syringe_rect.width
+            self.syringe_img = pygame.transform.flip(self.syringe, True, False)
+
+        self.syringe_rect.y = self.rect.y + 18

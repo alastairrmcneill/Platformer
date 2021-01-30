@@ -33,7 +33,7 @@ class World:
                     enemy = Enemy(col_count * TILE_SIZE + 2, row_count * TILE_SIZE - 12)
                     self.enemy_group.add(enemy)
                 if elem == 6:
-                    lava = Lava(col_count * TILE_SIZE, row_count * TILE_SIZE)
+                    lava = Lava(col_count * TILE_SIZE, row_count * TILE_SIZE + 12)
                     self.lava_group.add(lava)
                 if elem == 8:
                     level_exit = Exit(col_count * TILE_SIZE, row_count * TILE_SIZE - 13)

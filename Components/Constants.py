@@ -26,7 +26,7 @@ WORLD_DATA = [[[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
               [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
               [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 7, 0, 0, 0, 0, 2, 0, 1],
               [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-              [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 2, 2, 2, 2, 1],
+              [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 2, 2, 2, 2, 2, 1],
               [1, 0, 0, 0, 0, 0, 2, 2, 2, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1],
               [1, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
               [1, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -74,9 +74,11 @@ REDHAT_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "RedHat 1.png")),
                pygame.image.load(os.path.join(IMGS_PATH, "RedHat 2.png")),
                pygame.image.load(os.path.join(IMGS_PATH, "RedHat 3.png"))]
 
-BILL_WALKING_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Bill Gates Standing 1.png")),
-                     pygame.image.load(os.path.join(IMGS_PATH, "Bill Walking 2.png")),
-                     pygame.image.load(os.path.join(IMGS_PATH, "Bill Walking 3.png"))]
+BILL_WALKING_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Walking 1.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "Walking 2.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "Walking 3.png"))]
+
+SYRINGE_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Syringe Tip.png"))
 
 BULLET_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Bullet.png"))
 DOOR_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Door.png"))
