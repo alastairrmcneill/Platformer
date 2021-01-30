@@ -70,7 +70,14 @@ GRASS_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Grass.png"))
 BG_IMG = pygame.transform.scale2x(pygame.image.load(os.path.join(IMGS_PATH, "bg.png")))
 LAVA_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Lava.png"))
 LAVA_IMGS = [LAVA_IMG, pygame.transform.flip(LAVA_IMG, True, False)]
-ENEMY_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Enemy.png"))
+REDHAT_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "RedHat 1.png")),
+               pygame.image.load(os.path.join(IMGS_PATH, "RedHat 2.png")),
+               pygame.image.load(os.path.join(IMGS_PATH, "RedHat 3.png"))]
+
+BILL_WALKING_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Bill Gates Standing 1.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "Bill Walking 2.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "Bill Walking 3.png"))]
+
 BULLET_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Bullet.png"))
 DOOR_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Door.png"))
 

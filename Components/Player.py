@@ -1,12 +1,18 @@
 import pygame
 from Components.Projectile import Projectile
-from Components.Constants import WHITE, WIN_HEIGHT, TILE_SIZE
+from Components.Constants import WHITE, WIN_HEIGHT, TILE_SIZE, BILL_WALKING_IMGS
 
 class Player:
     def __init__(self, x, y, world):
         self.world = world
         self.bullet_group = pygame.sprite.Group()
-        self.rect = pygame.rect.Rect(x, y, 20, 60)
+        self.IMGS = BILL_WALKING_IMGS
+        self.image = self.IMGS[0]
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.animateCount = 0
+        self.animateLoop = 3
         self.vel_y = 0
         self.jumped = False
         self.jumpForce = 0
@@ -24,9 +30,9 @@ class Player:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] and self.bulletCount == 0:
             if self.direction > 0:
-                bullet = Projectile(self.rect.x + self.rect.width, self.rect.y, self.direction)
+                bullet = Projectile(self.rect.x + self.rect.width, self.rect.y + 21, self.direction)
             else:
-                bullet = Projectile(self.rect.x, self.rect.y, self.direction)
+                bullet = Projectile(self.rect.x, self.rect.y + 21, self.direction)
             self.bullet_group.add(bullet)
             self.shooting = True
 
@@ -67,6 +73,8 @@ class Player:
         if pygame.sprite.spritecollide(self, self.world.exit_group, False) and len(self.world.enemy_group.sprites()) == 0:
             self.level_complete = True
 
+        # Animate
+        self.animate(dx, dy)
 
         # Update player pos
         self.rect.y += dy
@@ -76,7 +84,7 @@ class Player:
         self.bullet_update()
 
     def draw(self, screen):
-        pygame.draw.rect(screen, WHITE, self.rect)
+        screen.blit(self.image, self.rect)
         self.bullet_group.draw(screen)
 
     def add_gravity(self, dy):
@@ -119,6 +127,30 @@ class Player:
             if self.bulletCount > 20 or len(self.bullet_group.sprites()) == 0:
                 self.bulletCount = 0
                 self.shooting = False
+
+    def animate(self, dx, dy):
+        index = 0
+        # Update image
+        if dx == 0 and dy == 0:
+            self.image = self.IMGS[0]
+        else:
+            self.animateCount += 1
+            if self.animateCount < self.animateLoop:
+                index = 0
+            elif self.animateCount < self.animateLoop * 2:
+                index = 1
+            elif self.animateCount < self.animateLoop * 3:
+                index = 2
+            elif self.animateCount < self.animateLoop * 4:
+                index = 1
+            else:
+                index = 0
+                self.animateCount = -1
+
+        if self.direction == -1:
+            self.image = pygame.transform.flip(self.IMGS[index], True, False)
+        elif self.direction == 1:
+            self.image = self.IMGS[index]
 
 
     def bullet_update(self):

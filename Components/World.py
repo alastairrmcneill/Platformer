@@ -30,7 +30,7 @@ class World:
                     tile = (GRASS_IMG, img_rect)
                     self.tiles.append(tile)
                 if elem == 3:
-                    enemy = Enemy(col_count * TILE_SIZE + 2, row_count * TILE_SIZE - 17)
+                    enemy = Enemy(col_count * TILE_SIZE + 2, row_count * TILE_SIZE - 12)
                     self.enemy_group.add(enemy)
                 if elem == 6:
                     lava = Lava(col_count * TILE_SIZE, row_count * TILE_SIZE)
