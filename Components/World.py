@@ -37,6 +37,7 @@ class World:
 
     def update(self):
         self.enemy_group.update()
+        self.lava_group.update()
 
 
     def draw(self, screen):

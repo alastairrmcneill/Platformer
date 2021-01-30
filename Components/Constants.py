@@ -48,6 +48,7 @@ DIRT_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Dirt.png"))
 GRASS_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Grass.png"))
 BG_IMG = pygame.transform.scale2x(pygame.image.load(os.path.join(IMGS_PATH, "bg.png")))
 LAVA_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Lava.png"))
+LAVA_IMGS = [LAVA_IMG, pygame.transform.flip(LAVA_IMG, True, False)]
 ENEMY_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Enemy.png"))
 
 # Fonts
