@@ -1,13 +1,24 @@
 import pygame
 from Scenes.Scene import Scene
-from Components.Constants import WHITE, SPLASH_IMG
+from Components.Constants import WHITE, BLACK, SPLASH_IMG, SPLASH_WALKING_IMGS, EVIL_BILL
 
 class Splash(Scene):
     def __init__(self):
         super().__init__()
-        self.count = 0
-        self.loop = 50
-        self.img = SPLASH_IMG
+        self.bg = SPLASH_IMG
+        self.BILL_IMGS = SPLASH_WALKING_IMGS
+        self.EVIL_BILL = pygame.transform.flip(EVIL_BILL, True, False)
+        self.image = self.BILL_IMGS[0]
+        self.rect = self.image.get_rect()
+        self.rect.x = 620
+        self.rect.y = 448
+
+        self.moveDirection = -1
+
+        self.animateCount = 0
+        self.animateLoop = 5
+
+        self.evilCount = 0
 
     def startup(self, persist):
         self.persist = persist
@@ -22,10 +33,39 @@ class Splash(Scene):
             self.next = "Intro"
 
     def update(self):
-        self.count += 1
-        if self.count == self.loop:
-            self.done = True
-            self.next = "Intro"
+        if self.rect.x > 400:
+            self.rect.x += self.moveDirection * 1
+
+            self.animateCount += 1
+            if self.animateCount < self.animateLoop:
+                index = 0
+            elif self.animateCount < self.animateLoop * 2:
+                index = 1
+            elif self.animateCount < self.animateLoop * 3:
+                index = 2
+            elif self.animateCount < self.animateLoop * 4:
+                index = 3
+            elif self.animateCount < self.animateLoop * 5:
+                index = 2
+            elif self.animateCount < self.animateLoop * 6:
+                index = 1
+            else:
+                index = 0
+                self.animateCount = -1
+
+            if self.moveDirection == -1:
+                self.image = pygame.transform.flip(self.BILL_IMGS[index], True, False)
+        else:
+            self.evilCount += 1
+            if self.evilCount <= 20:
+                self.image = pygame.transform.flip(self.BILL_IMGS[0], True, False)
+            if self.evilCount > 20:
+                self.image = self.EVIL_BILL
+            if self.evilCount > 50:
+                self.done = True
+                self.next = "Intro"
 
     def draw(self, screen):
-        screen.blit(self.img, (0,0))
+        screen.fill(BLACK)
+        screen.blit(self.bg, (0,100))
+        screen.blit(self.image, self.rect)

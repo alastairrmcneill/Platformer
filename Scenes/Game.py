@@ -7,17 +7,12 @@ from Components.Constants import BG_IMG
 class Game(Scene):
     def __init__(self):
         super().__init__()
-        self.level = 0
-        self.reset(self.level)
-
-    def reset(self, level):
-        self.world = World(level)
-        self.player = Player(50, 200, self.world)
+        self.level = 1
+        self.world = World(self.level)
+        self.player = Player(self.world)
 
     def startup(self, persist):
         self.persist = persist
-        self.level = self.persist["Level"]
-        self.reset(self.level)
 
     def cleanup(self):
         self.done = False
@@ -31,20 +26,24 @@ class Game(Scene):
         self.player.update()
 
         if self.player.dead:
-            self.done = True
-            self.next = "Game"
-            next_level = self.level
-            self.persist = {"Level": next_level}
+            self.reset_level()
 
 
         if self.player.level_complete:
-            next_level = self.level + 1
-            self.persist = {"Level": next_level}
-            self.done = True
-            self.next = "Game"
+            self.next_level()
 
 
     def draw(self, screen):
         screen.blit(BG_IMG, (0,0))
         self.world.draw(screen)
         self.player.draw(screen)
+
+
+    def next_level(self):
+        self.level += 1
+        self.world = World(self.level)
+        self.player = Player(self.world)
+
+    def reset_level(self):
+        self.world = World(self.level)
+        self.player = Player(self.world)

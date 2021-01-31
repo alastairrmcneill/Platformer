@@ -3,7 +3,7 @@ from Components.Projectile import Projectile
 from Components.Constants import WHITE, RED, WIN_HEIGHT, TILE_SIZE, BILL_WALKING_IMGS, SYRINGE_IMG
 
 class Player:
-    def __init__(self, x, y, world):
+    def __init__(self, world):
         self.world = world
         self.bullet_group = pygame.sprite.Group()
         self.syringe = SYRINGE_IMG
@@ -11,8 +11,8 @@ class Player:
         self.IMGS = BILL_WALKING_IMGS
         self.image = self.IMGS[0]
         self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.rect.x = self.world.player_starting_x
+        self.rect.y = self.world.player_starting_y
         self.syringe_rect = self.syringe.get_rect()
         self.animateCount = 0
         self.animateLoop = 3
