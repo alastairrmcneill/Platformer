@@ -138,10 +138,10 @@ class Player:
                 self.shooting = False
 
     def animate(self, dx, dy):
-        index = 0
+        index = 2
         # Update image
         if dx == 0 and dy == 0:
-            self.image = self.IMGS[0]
+            self.image = self.IMGS[2]
         else:
             self.animateCount += 1
             if self.animateCount < self.animateLoop:
@@ -151,6 +151,14 @@ class Player:
             elif self.animateCount < self.animateLoop * 3:
                 index = 2
             elif self.animateCount < self.animateLoop * 4:
+                index = 3
+            elif self.animateCount < self.animateLoop * 5:
+                index = 4
+            elif self.animateCount < self.animateLoop * 6:
+                index = 3
+            elif self.animateCount < self.animateLoop * 7:
+                index = 2
+            elif self.animateCount < self.animateLoop * 8:
                 index = 1
             else:
                 index = 0

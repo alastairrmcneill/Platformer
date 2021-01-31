@@ -44,9 +44,11 @@ REDHAT_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "RedHat 1.png")),
                pygame.image.load(os.path.join(IMGS_PATH, "RedHat 2.png")),
                pygame.image.load(os.path.join(IMGS_PATH, "RedHat 3.png"))]
 
-BILL_WALKING_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Walking 1.png")),
+BILL_WALKING_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Walking 3.png")),
                      pygame.image.load(os.path.join(IMGS_PATH, "Walking 2.png")),
-                     pygame.image.load(os.path.join(IMGS_PATH, "Walking 3.png"))]
+                     pygame.image.load(os.path.join(IMGS_PATH, "Walking 1.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "Walking 4.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "Walking 5.png"))]
 
 SYRINGE_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Syringe Tip.png"))
 
