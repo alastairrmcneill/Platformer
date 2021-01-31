@@ -38,7 +38,8 @@ class World:
                     covid = Covid(col_count * TILE_SIZE, row_count * TILE_SIZE + 10)
                     self.covid_group.add(covid)
                 if elem == 4:
-                    enemy = Enemy(col_count * TILE_SIZE + 2, row_count * TILE_SIZE - 12)
+                    path = self.enemy_paths.pop(0)
+                    enemy = Enemy(col_count * TILE_SIZE + 2, row_count * TILE_SIZE - 12, path)
                     self.enemy_group.add(enemy)
                 if elem == 5:
                     level_exit = Exit(col_count * TILE_SIZE, row_count * TILE_SIZE - 13)
@@ -68,6 +69,7 @@ class World:
         for level in data["Levels"]:
             if level["Level"] == self.level:
                 self.world_data = level["World Data"]
+                self.enemy_paths = level["Enemy Walking Paths"]
                 pos = level["Starting Position"]
                 self.player_starting_x = pos[0]
                 self.player_starting_y = pos[1]

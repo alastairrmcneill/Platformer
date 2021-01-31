@@ -2,7 +2,7 @@ import pygame
 from Components.Constants import REDHAT_IMGS
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self, x, y, path):
         super().__init__()
         self.IMGS = REDHAT_IMGS
         self.image = self.IMGS[0]
@@ -10,7 +10,9 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
-        self.moveDirection = 1
+        self.left = path[0]
+        self.right = path[1]
+        self.moveDirection = path[2]
         self.moveCount = 0
 
         self.animateCount = 0
@@ -18,11 +20,12 @@ class Enemy(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.x += self.moveDirection
-        self.moveCount += 1
+        self.moveCount += self.moveDirection
 
-        if abs(self.moveCount) == 50:
+        if self.moveCount > self.right:
             self.moveDirection *= -1
-            self.moveCount *= -1
+        elif self.moveCount < self.left:
+            self.moveDirection *= -1
 
         self.animateCount += 1
         if self.animateCount < self.animateLoop:
