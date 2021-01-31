@@ -1,9 +1,9 @@
 import pygame
 import json
-from Components.Lava import Lava
+from Components.Covid import Covid
 from Components.Enemy import Enemy
 from Components.Exit import Exit
-from Components.Constants import DIRT_IMG, GRASS_IMG, TILE_SIZE
+from Components.Constants import BRICK_IMG, BRICK_TOP_IMG, TILE_SIZE
 
 
 class World:
@@ -14,7 +14,7 @@ class World:
         self.player_starting_y = 0
         self.load_level_data()
         self.tiles = []
-        self.lava_group = pygame.sprite.Group()
+        self.covid_group = pygame.sprite.Group()
         self.enemy_group = pygame.sprite.Group()
         self.exit_group = pygame.sprite.Group()
 
@@ -23,20 +23,20 @@ class World:
             col_count = 0
             for elem in row:
                 if elem == 1:
-                    img_rect = DIRT_IMG.get_rect()
+                    img_rect = BRICK_IMG.get_rect()
                     img_rect.x = col_count * TILE_SIZE
                     img_rect.y = row_count * TILE_SIZE
-                    tile = (DIRT_IMG, img_rect)
+                    tile = (BRICK_IMG, img_rect)
                     self.tiles.append(tile)
                 if elem == 2:
-                    img_rect = GRASS_IMG.get_rect()
+                    img_rect = BRICK_TOP_IMG.get_rect()
                     img_rect.x = col_count * TILE_SIZE
                     img_rect.y = row_count * TILE_SIZE
-                    tile = (GRASS_IMG, img_rect)
+                    tile = (BRICK_TOP_IMG, img_rect)
                     self.tiles.append(tile)
                 if elem == 3:
-                    lava = Lava(col_count * TILE_SIZE, row_count * TILE_SIZE + 12)
-                    self.lava_group.add(lava)
+                    covid = Covid(col_count * TILE_SIZE, row_count * TILE_SIZE + 10)
+                    self.covid_group.add(covid)
                 if elem == 4:
                     enemy = Enemy(col_count * TILE_SIZE + 2, row_count * TILE_SIZE - 12)
                     self.enemy_group.add(enemy)
@@ -48,14 +48,14 @@ class World:
 
     def update(self):
         self.enemy_group.update()
-        self.lava_group.update()
+        self.covid_group.update()
 
 
     def draw(self, screen):
         for tile in self.tiles:
             screen.blit(tile[0], tile[1])
 
-        self.lava_group.draw(screen)
+        self.covid_group.draw(screen)
         self.enemy_group.draw(screen)
         self.exit_group.draw(screen)
 

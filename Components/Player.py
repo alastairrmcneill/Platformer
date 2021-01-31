@@ -69,8 +69,8 @@ class Player:
         if pygame.sprite.spritecollide(self, self.world.enemy_group, False):
             self.dead = True
 
-        # Check for collisions with lava
-        if pygame.sprite.spritecollide(self, self.world.lava_group, False):
+        # Check for collisions with covid
+        if pygame.sprite.spritecollide(self, self.world.covid_group, False):
             self.dead = True
 
 
