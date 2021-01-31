@@ -43,6 +43,9 @@ class Game(Scene):
         self.level += 1
         self.world = World(self.level)
         self.player = Player(self.world)
+        if self.world.tiles == []:
+            self.done = True
+            self.next = "Win"
 
     def reset_level(self):
         self.world = World(self.level)

@@ -24,6 +24,7 @@ IMGS_PATH = os.path.join(BASE_PATH, "Imgs")
 FONTS_PATH = os.path.join(BASE_PATH, "Fonts")
 
 # Images
+OUTER_BRICK_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Bricks outline.png"))
 BRICK_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Bricks.png"))
 BRICK_TOP_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Bricks Top.png"))
 COVID_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Covid 1.png")),
@@ -32,12 +33,14 @@ COVID_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Covid 1.png")),
               pygame.image.load(os.path.join(IMGS_PATH, "Covid 3.png"))]
 
 SPLASH_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Splash Screen.png"))
-SPLASH_WALKING_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Splash Walking 1.png")),
-                       pygame.image.load(os.path.join(IMGS_PATH, "Splash Walking 2.png")),
-                       pygame.image.load(os.path.join(IMGS_PATH, "Splash Walking 3.png")),
-                       pygame.image.load(os.path.join(IMGS_PATH, "Splash Walking 4.png"))]
+SPLASH_WALKING_IMGS = [pygame.transform.scale2x(pygame.image.load(os.path.join(IMGS_PATH, "Splash Walking 3.png"))),
+                       pygame.transform.scale2x(pygame.image.load(os.path.join(IMGS_PATH, "Splash Walking 2.png"))),
+                       pygame.transform.scale2x(pygame.image.load(os.path.join(IMGS_PATH, "Splash Walking 1.png"))),
+                       pygame.transform.scale2x(pygame.image.load(os.path.join(IMGS_PATH, "Splash Walking 4.png"))),
+                       pygame.transform.scale2x(pygame.image.load(os.path.join(IMGS_PATH, "Splash Walking 5.png")))]
 
-EVIL_BILL = pygame.image.load(os.path.join(IMGS_PATH, "Evil Bill.png"))
+EVIL_BILL = pygame.transform.scale2x(pygame.image.load(os.path.join(IMGS_PATH, "Evil Bill.png")))
+GOOD_BILL = pygame.transform.scale2x(pygame.image.load(os.path.join(IMGS_PATH, "Splash Walking 1.png")))
 BG_IMG = pygame.transform.scale2x(pygame.image.load(os.path.join(IMGS_PATH, "bg.png")))
 
 REDHAT_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "RedHat 1.png")),
@@ -55,5 +58,6 @@ SYRINGE_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Syringe Tip.png"))
 BULLET_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Bullet.png"))
 DOOR_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Door.png"))
 
+WIN_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Win.png"))
 # Fonts
 

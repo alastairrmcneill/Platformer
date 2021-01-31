@@ -11,7 +11,7 @@ class Splash(Scene):
         self.image = self.BILL_IMGS[0]
         self.rect = self.image.get_rect()
         self.rect.x = 620
-        self.rect.y = 448
+        self.rect.y = 500
 
         self.moveDirection = -1
 
@@ -46,8 +46,12 @@ class Splash(Scene):
             elif self.animateCount < self.animateLoop * 4:
                 index = 3
             elif self.animateCount < self.animateLoop * 5:
-                index = 2
+                index = 4
             elif self.animateCount < self.animateLoop * 6:
+                index = 3
+            elif self.animateCount < self.animateLoop * 7:
+                index = 2
+            elif self.animateCount < self.animateLoop * 8:
                 index = 1
             else:
                 index = 0
@@ -58,7 +62,7 @@ class Splash(Scene):
         else:
             self.evilCount += 1
             if self.evilCount <= 20:
-                self.image = pygame.transform.flip(self.BILL_IMGS[0], True, False)
+                self.image = pygame.transform.flip(self.BILL_IMGS[2], True, False)
             if self.evilCount > 20:
                 self.image = self.EVIL_BILL
             if self.evilCount > 50:
@@ -67,5 +71,5 @@ class Splash(Scene):
 
     def draw(self, screen):
         screen.fill(BLACK)
-        screen.blit(self.bg, (0,100))
+        screen.blit(self.bg, (0,0))
         screen.blit(self.image, self.rect)

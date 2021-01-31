@@ -3,7 +3,7 @@ import json
 from Components.Covid import Covid
 from Components.Enemy import Enemy
 from Components.Exit import Exit
-from Components.Constants import BRICK_IMG, BRICK_TOP_IMG, TILE_SIZE
+from Components.Constants import OUTER_BRICK_IMG, BRICK_IMG, BRICK_TOP_IMG, TILE_SIZE
 
 
 class World:
@@ -23,25 +23,31 @@ class World:
             col_count = 0
             for elem in row:
                 if elem == 1:
+                    img_rect = OUTER_BRICK_IMG.get_rect()
+                    img_rect.x = col_count * TILE_SIZE
+                    img_rect.y = row_count * TILE_SIZE
+                    tile = (OUTER_BRICK_IMG, img_rect)
+                    self.tiles.append(tile)
+                if elem == 2:
                     img_rect = BRICK_IMG.get_rect()
                     img_rect.x = col_count * TILE_SIZE
                     img_rect.y = row_count * TILE_SIZE
                     tile = (BRICK_IMG, img_rect)
                     self.tiles.append(tile)
-                if elem == 2:
+                if elem == 3:
                     img_rect = BRICK_TOP_IMG.get_rect()
                     img_rect.x = col_count * TILE_SIZE
                     img_rect.y = row_count * TILE_SIZE
                     tile = (BRICK_TOP_IMG, img_rect)
                     self.tiles.append(tile)
-                if elem == 3:
+                if elem == 4:
                     covid = Covid(col_count * TILE_SIZE, row_count * TILE_SIZE + 10)
                     self.covid_group.add(covid)
-                if elem == 4:
+                if elem == 5:
                     path = self.enemy_paths.pop(0)
                     enemy = Enemy(col_count * TILE_SIZE + 2, row_count * TILE_SIZE - 12, path)
                     self.enemy_group.add(enemy)
-                if elem == 5:
+                if elem == 6:
                     level_exit = Exit(col_count * TILE_SIZE, row_count * TILE_SIZE - 13)
                     self.exit_group.add(level_exit)
                 col_count += 1
