@@ -13,7 +13,7 @@ class Win(Scene):
         self.evil_bill = pygame.transform.flip(EVIL_BILL, True, False)
         self.image = self.good_bill
         self.evilCount = 0
-        self.font = pygame.font.SysFont("Arial", 40)
+        self.font = pygame.font.Font("Fonts/FFFFORWA.TTF", 16)
         self.rand = random.randint(3, 10)
 
     def startup(self, persist):
@@ -42,12 +42,12 @@ class Win(Scene):
     def draw_time(self, screen):
         time = self.format_time()
         text = self.font.render(time, True, WHITE)
-        rect = text.get_rect(midleft = (184, 352))
+        rect = text.get_rect(midleft = (187, 356))
         screen.blit(text, rect)
 
         time = self.format_Jeff_time()
         text = self.font.render(time, True, WHITE)
-        rect = text.get_rect(midleft = (440, 402))
+        rect = text.get_rect(midleft = (442, 406))
         screen.blit(text, rect)
 
     def format_time(self):

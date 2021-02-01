@@ -4,6 +4,7 @@ from Scenes.Splash import Splash
 from Scenes.Intro import Intro
 from Scenes.Game import Game
 from Scenes.Win import Win
+from Scenes.Lost import Lost
 from Components.Constants import WIN_WIDTH, WIN_HEIGHT
 
 WIN = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
@@ -12,7 +13,8 @@ pygame.display.set_caption("Platformer")
 scene_dict = {"Splash": Splash(),
               "Intro": Intro(),
               "Game": Game(),
-              "Win": Win()}
+              "Win": Win(),
+              "Lost": Lost ()}
 
 starting_scene = "Splash"
 

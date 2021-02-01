@@ -1,6 +1,6 @@
 import pygame
 from Scenes.Scene import Scene
-from Components.Constants import WHITE, BLACK, SPLASH_IMG, SPLASH_WALKING_IMGS, EVIL_BILL
+from Components.Constants import WHITE, BLACK, SPLASH_IMG, SPLASH_WALKING_IMGS, EVIL_BILL, GOOD_BILL
 
 class Splash(Scene):
     def __init__(self):
@@ -8,10 +8,11 @@ class Splash(Scene):
         self.bg = SPLASH_IMG
         self.BILL_IMGS = SPLASH_WALKING_IMGS
         self.EVIL_BILL = pygame.transform.flip(EVIL_BILL, True, False)
+        self.GOOD_BILL = pygame.transform.flip(GOOD_BILL, True, False)
         self.image = self.BILL_IMGS[0]
         self.rect = self.image.get_rect()
         self.rect.x = 620
-        self.rect.y = 500
+        self.rect.y = 400
 
         self.moveDirection = -1
 
@@ -34,7 +35,7 @@ class Splash(Scene):
 
     def update(self):
         if self.rect.x > 400:
-            self.rect.x += self.moveDirection * 1
+            self.rect.x += self.moveDirection * 3
 
             self.animateCount += 1
             if self.animateCount < self.animateLoop:
@@ -63,13 +64,17 @@ class Splash(Scene):
             self.evilCount += 1
             if self.evilCount <= 20:
                 self.image = pygame.transform.flip(self.BILL_IMGS[2], True, False)
-            if self.evilCount > 20:
+            elif self.evilCount <= 60:
+                self.image = self.GOOD_BILL
+            elif self.evilCount > 60 and self.evilCount <= 70:
                 self.image = self.EVIL_BILL
-            if self.evilCount > 50:
+            elif self.evilCount > 70:
+                self.image = self.GOOD_BILL
+            if self.evilCount > 85:
                 self.done = True
                 self.next = "Intro"
 
     def draw(self, screen):
         screen.fill(BLACK)
         screen.blit(self.bg, (0,0))
-        screen.blit(self.image, self.rect)
+        screen.blit(pygame.transform.scale2x(self.image), self.rect)

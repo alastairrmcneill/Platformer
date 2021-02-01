@@ -11,9 +11,10 @@ WORLD = [[0 for j in range(COLS)] for i in range(ROWS)]
 
 # IMGS
 SAVE = pygame.image.load("Imgs/Save.png")
-DIRT = pygame.image.load("Imgs/Dirt.png")
-GRASS = pygame.image.load("Imgs/Grass.png")
-LAVA = pygame.image.load("Imgs/Lava.png")
+OUTER_BRICKS = pygame.image.load("Imgs/Bricks outline.png")
+BRICKS = pygame.image.load("Imgs/Bricks.png")
+BRICKS_TOP = pygame.image.load("Imgs/Bricks top.png")
+COVID = pygame.image.load("Imgs/Covid 1.png")
 ENEMY = pygame.image.load("Imgs/RedHat 1.png")
 EXIT = pygame.image.load("Imgs/Door.png")
 
@@ -64,17 +65,20 @@ def draw_world(screen, world):
             y = i * TILE_SIZE
 
             elem = world[i][j]
+
             if elem == 0:
                 pass
             if elem == 1:
-                screen.blit(DIRT, (x, y))
+                screen.blit(OUTER_BRICKS, (x, y))
             if elem == 2:
-                screen.blit(GRASS, (x, y))
+                screen.blit(BRICKS, (x, y))
             if elem == 3:
-                screen.blit(LAVA, (x, y + 12))
+                screen.blit(BRICKS_TOP, (x, y))
             if elem == 4:
-                screen.blit(ENEMY, (x, y - 12))
+                screen.blit(COVID, (x, y + 10))
             if elem == 5:
+                screen.blit(ENEMY, (x, y - 12))
+            if elem == 6:
                 screen.blit(EXIT, (x, y - 13))
 
 def main():
@@ -93,7 +97,7 @@ def main():
                     row, col = get_row_col_from_pos(pos)
 
                     WORLD[row][col] += 1
-                    if WORLD[row][col] > 5:
+                    if WORLD[row][col] > 6:
                         WORLD[row][col] = 0
 
         if save_buton.draw():

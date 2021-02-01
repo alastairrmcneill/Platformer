@@ -8,7 +8,7 @@ class Projectile(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.vel = 6
+        self.vel = 8
         self.direction = direction
         if self.direction == 1:
             self.rect.x -= self.vel
