@@ -48,7 +48,7 @@ class World:
                     enemy = Enemy(col_count * TILE_SIZE + 2, row_count * TILE_SIZE - 12, path)
                     self.enemy_group.add(enemy)
                 if elem == 6:
-                    level_exit = Exit(col_count * TILE_SIZE, row_count * TILE_SIZE - 13)
+                    level_exit = Exit(col_count * TILE_SIZE, row_count * TILE_SIZE - 30)
                     self.exit_group.add(level_exit)
                 col_count += 1
             row_count += 1
@@ -56,6 +56,9 @@ class World:
     def update(self):
         self.enemy_group.update()
         self.covid_group.update()
+
+        if len(self.enemy_group.sprites()) == 0:
+            self.exit_group.update()
 
 
     def draw(self, screen):

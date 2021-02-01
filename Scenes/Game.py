@@ -30,7 +30,9 @@ class Game(Scene):
         return self.persist
 
     def handle_event(self, event):
-        pass
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_r]:
+            self.reset()
 
     def update(self):
         self.world.update()

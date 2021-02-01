@@ -25,7 +25,9 @@ class Win(Scene):
         return self.persist
 
     def handle_event(self, event):
-        pass
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+            self.done = True
+            self.next = "Intro"
 
     def update(self):
         self.evilCount += 1

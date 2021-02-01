@@ -59,7 +59,9 @@ BILL_WALKING_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Walking 3.png"))
 SYRINGE_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Syringe Tip.png"))
 
 BULLET_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Bullet.png"))
-DOOR_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Door.png"))
+
+DOOR_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Door off.png")),
+             pygame.image.load(os.path.join(IMGS_PATH, "Door open.png"))]
 
 WIN_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Win.png"))
 GAME_OVER_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Game over.png"))
