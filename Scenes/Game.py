@@ -1,4 +1,5 @@
 import pygame
+from datetime import datetime
 from Scenes.Scene import Scene
 from Components.World import World
 from Components.Player import Player
@@ -13,9 +14,13 @@ class Game(Scene):
 
     def startup(self, persist):
         self.persist = persist
+        self.start_time = datetime.now().replace(microsecond = 0)
 
     def cleanup(self):
         self.done = False
+        end_time = datetime.now().replace(microsecond = 0)
+        game_time = end_time - self.start_time
+        self.persist = {"Game time": game_time}
         return self.persist
 
     def handle_event(self, event):

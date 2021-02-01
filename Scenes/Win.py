@@ -1,6 +1,9 @@
 import pygame
+import random
 from Scenes.Scene import Scene
-from Components.Constants import WIN_IMG, EVIL_BILL, GOOD_BILL
+from Components.Constants import WIN_IMG, EVIL_BILL, GOOD_BILL, WHITE
+
+pygame.font.init()
 
 class Win(Scene):
     def __init__(self):
@@ -10,9 +13,12 @@ class Win(Scene):
         self.evil_bill = pygame.transform.flip(EVIL_BILL, True, False)
         self.image = self.good_bill
         self.evilCount = 0
+        self.font = pygame.font.SysFont("Arial", 40)
+        self.rand = random.randint(3, 10)
 
     def startup(self, persist):
         self.persist = persist
+        self.game_time = self.persist["Game time"]
 
     def cleanup(self):
         self.done = False
@@ -31,3 +37,65 @@ class Win(Scene):
     def draw(self, screen):
         screen.blit(self.bg_img, (0,0))
         screen.blit(self.image, (500,500))
+        self.draw_time(screen)
+
+    def draw_time(self, screen):
+        time = self.format_time()
+        text = self.font.render(time, True, WHITE)
+        rect = text.get_rect(midleft = (184, 352))
+        screen.blit(text, rect)
+
+        time = self.format_Jeff_time()
+        text = self.font.render(time, True, WHITE)
+        rect = text.get_rect(midleft = (440, 402))
+        screen.blit(text, rect)
+
+    def format_time(self):
+        hours = self.game_time.total_seconds() // 3600
+        minutes = (self.game_time.total_seconds() % 3600) // 60
+        seconds = (self.game_time.total_seconds() % 3600) % 60
+
+        string = ""
+        if hours > 0:
+            string += str(int(hours)) + ":"
+        if minutes == 0:
+            string += "00:"
+        elif minutes < 10:
+            string += "0" + str(int(minutes)) + ":"
+        else:
+            string += str(int(minutes)) + ":"
+
+        if seconds == 0:
+            string += "00:"
+        elif seconds < 10:
+            string += "0" + str(int(seconds))
+        else:
+            string += str(int(seconds))
+
+        return string
+
+
+    def format_Jeff_time(self):
+        total_seconds = self.game_time.total_seconds() - self.rand
+        hours = total_seconds// 3600
+        minutes = (total_seconds % 3600) // 60
+        seconds = (total_seconds % 3600) % 60
+
+        string = ""
+        if hours > 0:
+            string += str(int(hours)) + ":"
+        if minutes == 0:
+            string += "00:"
+        elif minutes < 10:
+            string += "0" + str(int(minutes)) + ":"
+        else:
+            string += str(int(minutes)) + ":"
+
+        if seconds == 0:
+            string += "00:"
+        elif seconds < 10:
+            string += "0" + str(int(seconds))
+        else:
+            string += str(int(seconds))
+
+        return string
