@@ -60,7 +60,7 @@ SYRINGE_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Syringe Tip.png"))
 
 BULLET_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Bullet.png"))
 
-DOOR_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Door off.png")),
+DOOR_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Door closed.png")),
              pygame.image.load(os.path.join(IMGS_PATH, "Door open.png"))]
 
 WIN_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Win.png"))
