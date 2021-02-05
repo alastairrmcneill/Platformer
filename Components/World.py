@@ -13,6 +13,14 @@ class World:
         self.player_starting_x = 0
         self.player_starting_y = 0
         self.load_level_data()
+        if self.world_data != []:
+            self.width = len(self.world_data[0]) * TILE_SIZE
+            self.height = len(self.world_data) * TILE_SIZE
+        else:
+            self.width = 0
+            self.height = 0
+
+
         self.tiles = []
         self.covid_group = pygame.sprite.Group()
         self.enemy_group = pygame.sprite.Group()
@@ -61,13 +69,18 @@ class World:
             self.exit_group.update()
 
 
-    def draw(self, screen):
+    def draw(self, screen, camera):
         for tile in self.tiles:
-            screen.blit(tile[0], tile[1])
+            x = tile[1].x
+            y = tile[1].y
+            screen.blit(tile[0], (x - camera.offset.x, y - camera.offset.y))
 
-        self.covid_group.draw(screen)
-        self.enemy_group.draw(screen)
-        self.exit_group.draw(screen)
+        for sprite in self.covid_group:
+            screen.blit(sprite.image, (sprite.rect.x - camera.offset.x, sprite.rect.y - camera.offset.y))
+        for sprite in self.enemy_group:
+            screen.blit(sprite.image, (sprite.rect.x - camera.offset.x, sprite.rect.y - camera.offset.y))
+        for sprite in self.exit_group:
+            screen.blit(sprite.image, (sprite.rect.x - camera.offset.x, sprite.rect.y - camera.offset.y))
 
 
     def load_level_data(self):

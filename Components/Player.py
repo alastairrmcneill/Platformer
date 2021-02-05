@@ -91,11 +91,11 @@ class Player:
         # Update Bullets
         self.bullet_update()
 
-    def draw(self, screen):
-        screen.blit(self.image, self.rect)
-        screen.blit(self.syringe_img, self.syringe_rect)
-        # pygame.draw.rect(screen, WHITE, self.rect, 2)
-        self.bullet_group.draw(screen)
+    def draw(self, screen, camera):
+        screen.blit(self.image, (self.rect.x - camera.offset.x, self.rect.y - camera.offset.y))
+        screen.blit(self.syringe_img, (self.syringe_rect.x - camera.offset.x, self.syringe_rect.y - camera.offset.y ))
+        for sprite in self.bullet_group:
+            screen.blit(sprite.image, (sprite.rect.x - camera.offset.x, sprite.rect.y - camera.offset.y))
 
     def add_gravity(self, dy):
         old_dy = dy

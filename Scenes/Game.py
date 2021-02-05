@@ -3,6 +3,7 @@ from datetime import datetime
 from Scenes.Scene import Scene
 from Components.World import World
 from Components.Player import Player
+from Components.Camera import Camera
 from Components.Constants import BG_IMG, LIFE_IMG
 
 class Game(Scene):
@@ -16,6 +17,7 @@ class Game(Scene):
         self.lives = 3
         self.world = World(self.level)
         self.player = Player(self.world)
+        self.camera = Camera(self.player)
 
     def startup(self, persist):
         self.persist = persist
@@ -45,11 +47,12 @@ class Game(Scene):
         if self.player.level_complete:
             self.next_level()
 
+        self.camera.scroll()
 
     def draw(self, screen):
-        screen.blit(BG_IMG, (0,0))
-        self.world.draw(screen)
-        self.player.draw(screen)
+        screen.blit(BG_IMG, (0 - self.camera.offset.x, 0 - self.camera.offset.y))
+        self.world.draw(screen, self.camera)
+        self.player.draw(screen, self.camera)
         self.draw_lives(screen)
 
     def draw_lives(self, screen):
@@ -64,6 +67,7 @@ class Game(Scene):
         if self.world.tiles == []:
             self.done = True
             self.next = "Win"
+        self.camera.reset(self.player)
 
     def reset_level(self):
         self.lives -= 1
@@ -73,3 +77,4 @@ class Game(Scene):
             return
         self.world = World(self.level)
         self.player = Player(self.world)
+        self.camera.reset(self.player)
