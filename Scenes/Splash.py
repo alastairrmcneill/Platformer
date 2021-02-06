@@ -31,7 +31,7 @@ class Splash(Scene):
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             self.done = True
-            self.next = "Intro"
+            self.next = "Main menu"
 
     def update(self):
         if self.rect.x > 400:
@@ -72,7 +72,7 @@ class Splash(Scene):
                 self.image = self.GOOD_BILL
             if self.evilCount > 85:
                 self.done = True
-                self.next = "Intro"
+                self.next = "Main menu"
 
     def draw(self, screen):
         screen.fill(BLACK)

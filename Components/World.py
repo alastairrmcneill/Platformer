@@ -7,12 +7,12 @@ from Components.Constants import OUTER_BRICK_IMG, BRICK_IMG, BRICK_TOP_IMG, TILE
 
 
 class World:
-    def __init__(self, level):
+    def __init__(self, world_num, level):
         self.level = level
         self.world_data = []
         self.player_starting_x = 0
         self.player_starting_y = 0
-        self.load_level_data()
+        self.load_level_data(world_num)
         if self.world_data != []:
             self.width = len(self.world_data[0]) * TILE_SIZE
             self.height = len(self.world_data) * TILE_SIZE
@@ -83,8 +83,8 @@ class World:
             screen.blit(sprite.image, (sprite.rect.x - camera.offset.x, sprite.rect.y - camera.offset.y))
 
 
-    def load_level_data(self):
-        with open("Components/Levels.json", "r") as jsonFile:
+    def load_level_data(self, world_num):
+        with open(f"Worlds/World {world_num}.json", "r") as jsonFile:
             data = json.load(jsonFile)
 
 

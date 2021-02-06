@@ -10,18 +10,18 @@ class Game(Scene):
     def __init__(self):
         super().__init__()
         self.life_img = LIFE_IMG
-        self.reset()
 
     def reset(self):
         self.level = 1
         self.lives = 3
-        self.world = World(self.level)
+        self.world = World(self.world_num, self.level)
         self.player = Player(self.world)
         self.camera = Camera(self.player)
 
     def startup(self, persist):
         self.persist = persist
         self.start_time = datetime.now().replace(microsecond = 0)
+        self.world_num = self.persist["World"]
         self.reset()
 
     def cleanup(self):
@@ -62,7 +62,7 @@ class Game(Scene):
 
     def next_level(self):
         self.level += 1
-        self.world = World(self.level)
+        self.world = World(self.world_num, self.level)
         self.player = Player(self.world)
         if self.world.tiles == []:
             self.done = True
@@ -75,6 +75,6 @@ class Game(Scene):
             self.done = True
             self.next = "Lost"
             return
-        self.world = World(self.level)
+        self.world = World(self.world_num, self.level)
         self.player = Player(self.world)
         self.camera.reset(self.player)

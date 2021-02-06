@@ -45,6 +45,7 @@ SPLASH_WALKING_IMGS = [pygame.transform.scale2x(pygame.image.load(os.path.join(I
 EVIL_BILL = pygame.transform.scale2x(pygame.image.load(os.path.join(IMGS_PATH, "Evil Bill.png")))
 GOOD_BILL = pygame.transform.scale2x(pygame.image.load(os.path.join(IMGS_PATH, "Good Bill.png")))
 BG_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Background.png"))
+MENU_BG_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Menu Background.png"))
 
 REDHAT_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "RedHat 1.png")),
                pygame.image.load(os.path.join(IMGS_PATH, "RedHat 2.png")),
@@ -65,5 +66,11 @@ DOOR_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Door closed.png")),
 
 WIN_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Win.png"))
 GAME_OVER_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Game over.png"))
+
+WORLD1_THUMBNAIL = [pygame.image.load(os.path.join(IMGS_PATH, "World 1 Inactive.png")),
+                    pygame.image.load(os.path.join(IMGS_PATH, "World 1 Active.png")),
+                    pygame.image.load(os.path.join(IMGS_PATH, "World 1 Pressed.png"))]
+
+
 # Fonts
 
