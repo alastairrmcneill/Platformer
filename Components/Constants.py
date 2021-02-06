@@ -22,6 +22,7 @@ RED = (255, 0, 0)
 BASE_PATH = os.path.dirname(os.path.dirname(__file__))
 IMGS_PATH = os.path.join(BASE_PATH, "Imgs")
 FONTS_PATH = os.path.join(BASE_PATH, "Fonts")
+WORLDS_PATH = os.path.join(BASE_PATH, "Worlds")
 
 # Images
 OUTER_BRICK_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Bricks outline.png"))
@@ -71,6 +72,16 @@ WORLD1_THUMBNAIL = [pygame.image.load(os.path.join(IMGS_PATH, "World 1 Inactive.
                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Active.png")),
                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Pressed.png"))]
 
+ARROW_RIGHT = [pygame.image.load(os.path.join(IMGS_PATH, "Arrow Inactive.png")),
+               pygame.image.load(os.path.join(IMGS_PATH, "Arrow Active.png")),
+               pygame.image.load(os.path.join(IMGS_PATH, "Arrow Pressed.png"))]
+
+ARROW_LEFT = [pygame.transform.flip(pygame.image.load(os.path.join(IMGS_PATH, "Arrow Inactive.png")), True, False),
+              pygame.transform.flip(pygame.image.load(os.path.join(IMGS_PATH, "Arrow Active.png")), True, False),
+              pygame.transform.flip(pygame.image.load(os.path.join(IMGS_PATH, "Arrow Pressed.png")), True, False)]
+
+
+LOCKED_THUMBNAIL = pygame.image.load(os.path.join(IMGS_PATH, "World 1 Inactive.png"))
 
 # Fonts
 

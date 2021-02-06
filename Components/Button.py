@@ -1,7 +1,7 @@
 import pygame
 
 class Button:
-    def __init__(self, images, x, y, index):
+    def __init__(self, images, x, y, index = 0):
         self.inactive_image = images[0]
         self.active_image = images[1]
         self.pressed_image = images[2]
@@ -11,6 +11,7 @@ class Button:
         self.index = index
         self.clicked = False
         self.done = False
+        self.hide = False
 
     def run(self):
         self.image = self.inactive_image
@@ -31,5 +32,13 @@ class Button:
 
 
     def draw(self, screen):
-        screen.blit(self.image, self.rect)
+        if not self.hide:
+            screen.blit(self.image, self.rect)
+
+
+    def update(self, images):
+        self.inactive_image = images[0]
+        self.active_image = images[1]
+        self.pressed_image = images[2]
+        self.image = self.inactive_image
 
