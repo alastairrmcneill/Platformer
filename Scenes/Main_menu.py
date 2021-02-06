@@ -43,7 +43,7 @@ class Main_menu(Scene):
 
     def world_buttons_setup(self):
         self.world_buttons.append(Button(WORLD1_THUMBNAIL, (WIN_WIDTH // 2 - 175), 500, 1))
-        self.world_buttons.append(Button(WORLD1_THUMBNAIL, (WIN_WIDTH // 2), 500, 1))
+        self.world_buttons.append(Button(WORLD1_THUMBNAIL, (WIN_WIDTH // 2), 500, 2))
         self.world_buttons.append(Button(WORLD1_THUMBNAIL, (WIN_WIDTH // 2 + 175), 500, 1))
 
 
