@@ -40,7 +40,7 @@ class Player:
             self.bullet_group.add(bullet)
             self.shooting = True
 
-        if keys[pygame.K_UP] and not self.jumped:
+        if (keys[pygame.K_UP] or keys[pygame.K_w]) and not self.jumped:
             self.jumpForce += 1
             if self.jumpForce == 1:
                 self.vel_y = -10
@@ -48,14 +48,14 @@ class Player:
                 self.vel_y -= 2
             else:
                 self.jumped = True
-        if not keys[pygame.K_UP]:
+        if not (keys[pygame.K_UP] or keys[pygame.K_w]):
             self.jumpForce = 0
             self.jumped = True
 
-        if keys[pygame.K_RIGHT]:
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             dx += 5
             self.direction = 1
-        if keys[pygame.K_LEFT]:
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             dx -= 5
             self.direction = -1
 
