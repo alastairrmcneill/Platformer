@@ -68,9 +68,22 @@ DOOR_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Door closed.png")),
 WIN_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Win.png"))
 GAME_OVER_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Game over.png"))
 
-WORLD1_THUMBNAIL = [pygame.image.load(os.path.join(IMGS_PATH, "World 1 Inactive.png")),
-                    pygame.image.load(os.path.join(IMGS_PATH, "World 1 Active.png")),
-                    pygame.image.load(os.path.join(IMGS_PATH, "World 1 Pressed.png"))]
+WORLD_THUMBNAILS = [[pygame.image.load(os.path.join(IMGS_PATH, "World 1 Inactive.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Active.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Pressed.png"))],
+                    [pygame.image.load(os.path.join(IMGS_PATH, "World 1 Inactive.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Active.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Pressed.png"))],
+                    [pygame.image.load(os.path.join(IMGS_PATH, "World 1 Inactive.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Active.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Pressed.png"))],
+                    [pygame.image.load(os.path.join(IMGS_PATH, "World 1 Inactive.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Active.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Pressed.png"))],
+                    [pygame.image.load(os.path.join(IMGS_PATH, "World 1 Inactive.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Active.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Pressed.png"))]]
+
 
 ARROW_RIGHT = [pygame.image.load(os.path.join(IMGS_PATH, "Arrow Inactive.png")),
                pygame.image.load(os.path.join(IMGS_PATH, "Arrow Active.png")),
