@@ -65,6 +65,9 @@ class Player:
         # Check for tile collisions
         dx, dy = self.check_tile_collisions(dx, dy)
 
+        # Check for platform collisions
+        dx, dy = self.check_platform_collisions(dx, dy)
+
         # Check for collisions with enemies
         if pygame.sprite.spritecollide(self, self.world.enemy_group, False):
             self.dead = True
@@ -128,6 +131,68 @@ class Player:
                     self.jumped = False
         return new_dx, new_dy
 
+
+    def check_platform_collisions(self, dx, dy):
+        new_dx = dx
+        new_dy = dy
+        col_thresh = 16
+
+        for platform in self.world.platform_group:
+            if platform.orientation == 1:
+                # check x direction
+                if platform.rect.colliderect(self.rect.x + dx, self.rect.y, self.rect.width, self.rect.height):
+                    # Check if moving right
+                    if dx > 0:
+                        new_dx = platform.rect.left - self.rect.right
+                    # Check if moving left
+                    if dx < 0:
+                        new_dx = platform.rect.right - self.rect.left
+                    # Check if stationary
+                    if dx == 0:
+                        if platform.moveDirection > 0 and platform.previous_move_direction > 0:
+                            new_dx = platform.rect.right - self.rect.left
+
+                        elif platform.moveDirection < 0 and platform.previous_move_direction < 0:
+                            new_dx = platform.rect.left - self.rect.right
+
+
+                # # Check in y direction
+                if platform.rect.colliderect(self.rect.x, self.rect.y + dy, self.rect.width, self.rect.height):
+                    #check if below platform
+                    if abs((self.rect.top + dy) - platform.rect.bottom) < col_thresh:
+                        self.vel_y = 0
+                        new_dy = platform.rect.bottom - self.rect.top
+                    # #check if above platform
+                    elif abs((self.rect.bottom + dy) - platform.rect.top) < col_thresh:
+                        self.rect.bottom = platform.rect.top
+                        self.vel_y = 0
+                        self.jumped = False
+                        new_dy = 0
+                        #move sideways with the platform
+                        self.rect.x += platform.moveDirection
+
+            elif platform.orientation == 2:
+                if platform.rect.colliderect(self.rect.x, self.rect.y + dy + 1, self.rect.width, self.rect.height):
+                    #check if below platform
+                    if abs((self.rect.top + dy) - platform.rect.bottom) < col_thresh:
+                        self.vel_y = 0
+                        new_dy = platform.rect.bottom - self.rect.top
+                    # #check if above platform
+                    elif abs((self.rect.bottom + dy) - platform.rect.top) < col_thresh:
+                        self.rect.bottom = platform.rect.top
+                        self.vel_y = 0
+                        self.jumped = False
+                        new_dy = 0
+                if platform.rect.colliderect(self.rect.x + dx, self.rect.y + new_dy, self.rect.width, self.rect.height):
+                    # Check if moving right
+                    if dx > 0:
+                        new_dx = platform.rect.left - self.rect.right
+                    # Check if moving left
+                    if dx < 0:
+                        new_dx = platform.rect.right - self.rect.left
+
+        return new_dx, new_dy
+
     def update_counters(self):
         # Update bullet timer
         if self.shooting:
@@ -175,6 +240,11 @@ class Player:
 
         for bullet in self.bullet_group:
             hit = pygame.sprite.spritecollide(bullet, self.world.enemy_group, True)
+            if hit:
+                bullet.kill()
+                continue
+
+            hit = pygame.sprite.spritecollide(bullet, self.world.platform_group, False)
             if hit:
                 bullet.kill()
                 continue

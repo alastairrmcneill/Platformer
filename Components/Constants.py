@@ -29,6 +29,7 @@ OUTER_BRICK_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Bricks outline.png"
 BRICK_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Bricks.png"))
 BRICK_TOP_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Bricks Top.png"))
 LIFE_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Mask.png"))
+PLATFORM_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Platform.png"))
 
 
 COVID_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Covid 1.png")),
