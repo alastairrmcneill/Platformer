@@ -24,6 +24,8 @@ class Player:
         self.shooting = False
         self.dead = False
         self.level_complete = False
+        self.on_platform = False
+        self.platform_vel = 0
 
     def update(self):
         dx = 0
@@ -41,6 +43,7 @@ class Player:
             self.shooting = True
 
         if (keys[pygame.K_UP] or keys[pygame.K_w]) and not self.jumped:
+            self.on_platform = False
             self.jumpForce += 1
             if self.jumpForce == 1:
                 self.vel_y = -10
@@ -101,13 +104,16 @@ class Player:
             screen.blit(sprite.image, (sprite.rect.x - camera.offset.x, sprite.rect.y - camera.offset.y))
 
     def add_gravity(self, dy):
-        old_dy = dy
+        if self.on_platform:
+            new_dy = self.platform_vel
+        else:
+            old_dy = dy
 
-        # Add Gravity
-        self.vel_y += 1
-        if self.vel_y > 15:
-            self.vel_y = 15
-        new_dy = old_dy + self.vel_y
+            # Add Gravity
+            self.vel_y += 1
+            if self.vel_y > 15:
+                self.vel_y = 15
+            new_dy = old_dy + self.vel_y
 
         return new_dy
 
@@ -118,10 +124,16 @@ class Player:
         for tile in self.world.tiles:
             # check x direction
             if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.rect.width, self.rect.height):
-                new_dx = 0
+                # If on left side, move to left side
+                if self.rect.centerx < tile[1].centerx:
+                    new_dx = tile[1].left - self.rect.right
+
+                # If on right side, move right
+                if self.rect.centerx > tile[1].centerx:
+                    new_dx = tile[1].right - self.rect.left
 
             # Check in y direction
-            if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.rect.width, self.rect.height):
+            if tile[1].colliderect(self.rect.x + new_dx, self.rect.y + dy, self.rect.width, self.rect.height):
                 if self.vel_y < 0:
                     new_dy = tile[1].bottom - self.rect.top
                     self.vel_y = 0
@@ -129,6 +141,7 @@ class Player:
                     new_dy = tile[1].top - self.rect.bottom
                     self.vel_y = 0
                     self.jumped = False
+
         return new_dx, new_dy
 
 
@@ -136,6 +149,7 @@ class Player:
         new_dx = dx
         new_dy = dy
         col_thresh = 16
+        self.on_platform = False
 
         for platform in self.world.platform_group:
             if platform.orientation == 1:
@@ -169,7 +183,7 @@ class Player:
                         self.jumped = False
                         new_dy = 0
                         #move sideways with the platform
-                        self.rect.x += platform.moveDirection
+                        self.rect.x += platform.moveDirection * platform.vel
 
             elif platform.orientation == 2:
                 if platform.rect.colliderect(self.rect.x, self.rect.y + dy + 1, self.rect.width, self.rect.height):
@@ -182,6 +196,8 @@ class Player:
                         self.rect.bottom = platform.rect.top
                         self.vel_y = 0
                         self.jumped = False
+                        self.on_platform = True
+                        self.platform_vel = platform.vel
                         new_dy = 0
                 if platform.rect.colliderect(self.rect.x + dx, self.rect.y + new_dy, self.rect.width, self.rect.height):
                     # Check if moving right

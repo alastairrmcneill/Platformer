@@ -13,6 +13,7 @@ class Platform(pygame.sprite.Sprite):
         self.right = path[1]
         self.moveDirection = path[2]
         self.orientation = path[3]
+        self.vel = path[4]
         self.moveCount = 0
 
         self.animateCount = 0
@@ -22,11 +23,11 @@ class Platform(pygame.sprite.Sprite):
 
     def update(self):
         if self.orientation == 1:
-            self.rect.x += self.moveDirection
+            self.rect.x += self.moveDirection * self.vel
         else:
-            self.rect.y += self.moveDirection
+            self.rect.y += self.moveDirection * self.vel
 
-        self.moveCount += self.moveDirection
+        self.moveCount += self.moveDirection * self.vel
 
         self.previous_move_direction = self.moveDirection
 
