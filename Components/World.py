@@ -4,6 +4,7 @@ from Components.Covid import Covid
 from Components.Enemy import Enemy
 from Components.Exit import Exit
 from Components.Platform import Platform
+from Components.Life import Life
 from Components.Constants import OUTER_BRICK_IMG, BRICK_IMG, BRICK_TOP_IMG, TILE_SIZE
 
 
@@ -26,6 +27,7 @@ class World:
         self.covid_group = pygame.sprite.Group()
         self.enemy_group = pygame.sprite.Group()
         self.exit_group = pygame.sprite.Group()
+        self.life_group = pygame.sprite.Group()
         self.platform_group = pygame.sprite.Group()
 
         row_count = 0
@@ -64,6 +66,9 @@ class World:
                     path = self.platform_paths.pop(0)
                     platform = Platform(col_count * TILE_SIZE, row_count * TILE_SIZE, path)
                     self.platform_group.add(platform)
+                if elem == 8:
+                    life = Life(col_count * TILE_SIZE, row_count * TILE_SIZE)
+                    self.life_group.add(life)
                 col_count += 1
             row_count += 1
 
@@ -89,6 +94,8 @@ class World:
         for sprite in self.exit_group:
             screen.blit(sprite.image, (sprite.rect.x - camera.offset.x, sprite.rect.y - camera.offset.y))
         for sprite in self.platform_group:
+            screen.blit(sprite.image, (sprite.rect.x - camera.offset.x, sprite.rect.y - camera.offset.y))
+        for sprite in self.life_group:
             screen.blit(sprite.image, (sprite.rect.x - camera.offset.x, sprite.rect.y - camera.offset.y))
 
 

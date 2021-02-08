@@ -4,6 +4,10 @@ from Components.Constants import WHITE, RED, WIN_HEIGHT, TILE_SIZE, BILL_WALKING
 
 class Player:
     def __init__(self, world):
+        self.lives = 3
+        self.reset(world)
+
+    def reset(self, world):
         self.world = world
         self.bullet_group = pygame.sprite.Group()
         self.syringe = SYRINGE_IMG
@@ -79,10 +83,16 @@ class Player:
         if pygame.sprite.spritecollide(self, self.world.covid_group, False):
             self.dead = True
 
-
         # Check for collision with exit
         if pygame.sprite.spritecollide(self, self.world.exit_group, False) and len(self.world.enemy_group.sprites()) == 0:
             self.level_complete = True
+
+        # Check for collision with life
+        if pygame.sprite.spritecollide(self, self.world.life_group, True if self.lives < 3 else False):
+            self.lives += 1
+            if self.lives > 3:
+                self.lives = 3
+
 
         # Animate
         self.animate(dx, dy)

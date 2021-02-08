@@ -15,7 +15,6 @@ class Game(Scene):
 
     def reset(self):
         self.level = 5
-        self.lives = 3
         self.world = World(self.world_num, self.level)
         self.player = Player(self.world)
         self.camera = Camera(self.player)
@@ -58,7 +57,7 @@ class Game(Scene):
         self.draw_lives(screen)
 
     def draw_lives(self, screen):
-        for i in range(self.lives):
+        for i in range(self.player.lives):
             screen.blit(self.life_img, (i* 30, 570))
 
 
@@ -71,13 +70,14 @@ class Game(Scene):
         self.camera.reset(self.player)
 
     def reset_level(self):
-        self.lives -= 1
-        if self.lives == 0:
+        self.player.lives -= 1
+        print(self.player.lives)
+        if self.player.lives == 0:
             self.done = True
             self.next = "Lost"
             return
         self.world = World(self.world_num, self.level)
-        self.player = Player(self.world)
+        self.player.reset(self.world)
         self.camera.reset(self.player)
 
     def world_complete(self):
