@@ -21,7 +21,6 @@ class Player:
         self.animateCount = 0
         self.animateLoop = 3
         self.vel_y = 0
-        self.jumped = False
         self.jumpForce = 0
         self.direction = 1
         self.bulletCount = 0
@@ -30,6 +29,9 @@ class Player:
         self.level_complete = False
         self.on_platform = False
         self.platform_vel = 0
+        self.can_jump = True
+        self.can_double_jump = True
+        self.jump_pressed = False
 
     def update(self):
         dx = 0
@@ -46,18 +48,38 @@ class Player:
             self.bullet_group.add(bullet)
             self.shooting = True
 
-        if (keys[pygame.K_UP] or keys[pygame.K_w]) and not self.jumped:
-            self.on_platform = False
-            self.jumpForce += 1
-            if self.jumpForce == 1:
-                self.vel_y = -10
-            elif self.jumpForce < 5:
-                self.vel_y -= 2
-            else:
-                self.jumped = True
+        if (keys[pygame.K_UP] or keys[pygame.K_w]) and (self.can_jump or self.can_double_jump) and not self.jump_pressed:
+            if self.can_jump:
+                # Implement jump, set can_jump to be false, set jump_pressed to True
+                self.on_platform = False
+                self.jumpForce += 1
+                if self.jumpForce == 1:
+                    self.vel_y = -10
+                elif self.jumpForce < 5:
+                    self.vel_y -= 2
+                else:
+                    self.can_jump = False
+                    self.jump_pressed = True
+
+            elif self.can_double_jump:
+                # Implement jump set can_double_jump to be false and set jump_pressed to be true
+                self.on_platform = False
+                self.jumpForce -= 1
+                if self.jumpForce == -1:
+                    self.vel_y = -10
+                elif self.jumpForce > -5:
+                    self.vel_y -= 2
+                else:
+                    self.can_double_jump = False
+                    self.jump_pressed = True
+
         if not (keys[pygame.K_UP] or keys[pygame.K_w]):
+            if self.jumpForce > 0:
+                self.can_jump = False
+            if self.jumpForce < 0:
+                self.can_double_jump = False
             self.jumpForce = 0
-            self.jumped = True
+            self.jump_pressed = False
 
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             dx += 5
@@ -150,7 +172,8 @@ class Player:
                 elif self.vel_y > 0:
                     new_dy = tile[1].top - self.rect.bottom
                     self.vel_y = 0
-                    self.jumped = False
+                    self.can_jump = True
+                    self.can_double_jump = True
 
         return new_dx, new_dy
 
@@ -190,7 +213,8 @@ class Player:
                     elif abs((self.rect.bottom + dy) - platform.rect.top) < col_thresh:
                         self.rect.bottom = platform.rect.top
                         self.vel_y = 0
-                        self.jumped = False
+                        self.can_jump = True
+                        self.can_double_jump = True
                         new_dy = 0
                         #move sideways with the platform
                         self.rect.x += platform.moveDirection * platform.vel
@@ -205,7 +229,8 @@ class Player:
                     elif abs((self.rect.bottom + dy) - platform.rect.top) < col_thresh:
                         self.rect.bottom = platform.rect.top
                         self.vel_y = 0
-                        self.jumped = False
+                        self.can_jump = True
+                        self.can_double_jump = True
                         self.on_platform = True
                         self.platform_vel = platform.vel
                         new_dy = 0
