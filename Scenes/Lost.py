@@ -22,7 +22,7 @@ class Lost(Scene):
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             self.done = True
-            self.next = "Intro"
+            self.next = "Main menu"
 
     def update(self):
         pass

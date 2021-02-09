@@ -22,12 +22,14 @@ RED = (255, 0, 0)
 BASE_PATH = os.path.dirname(os.path.dirname(__file__))
 IMGS_PATH = os.path.join(BASE_PATH, "Imgs")
 FONTS_PATH = os.path.join(BASE_PATH, "Fonts")
+WORLDS_PATH = os.path.join(BASE_PATH, "Worlds")
 
 # Images
 OUTER_BRICK_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Bricks outline.png"))
 BRICK_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Bricks.png"))
 BRICK_TOP_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Bricks Top.png"))
 LIFE_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Mask.png"))
+PLATFORM_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Platform.png"))
 
 
 COVID_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Covid 1.png")),
@@ -45,6 +47,7 @@ SPLASH_WALKING_IMGS = [pygame.transform.scale2x(pygame.image.load(os.path.join(I
 EVIL_BILL = pygame.transform.scale2x(pygame.image.load(os.path.join(IMGS_PATH, "Evil Bill.png")))
 GOOD_BILL = pygame.transform.scale2x(pygame.image.load(os.path.join(IMGS_PATH, "Good Bill.png")))
 BG_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Background.png"))
+MENU_BG_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Menu Background.png"))
 
 REDHAT_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "RedHat 1.png")),
                pygame.image.load(os.path.join(IMGS_PATH, "RedHat 2.png")),
@@ -65,5 +68,34 @@ DOOR_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Door closed.png")),
 
 WIN_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Win.png"))
 GAME_OVER_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Game over.png"))
+
+WORLD_THUMBNAILS = [[pygame.image.load(os.path.join(IMGS_PATH, "World 1 Inactive.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Active.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Pressed.png"))],
+                    [pygame.image.load(os.path.join(IMGS_PATH, "World 1 Inactive.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Active.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Pressed.png"))],
+                    [pygame.image.load(os.path.join(IMGS_PATH, "World 1 Inactive.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Active.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Pressed.png"))],
+                    [pygame.image.load(os.path.join(IMGS_PATH, "World 1 Inactive.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Active.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Pressed.png"))],
+                    [pygame.image.load(os.path.join(IMGS_PATH, "World 1 Inactive.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Active.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 1 Pressed.png"))]]
+
+
+ARROW_RIGHT = [pygame.image.load(os.path.join(IMGS_PATH, "Arrow Inactive.png")),
+               pygame.image.load(os.path.join(IMGS_PATH, "Arrow Active.png")),
+               pygame.image.load(os.path.join(IMGS_PATH, "Arrow Pressed.png"))]
+
+ARROW_LEFT = [pygame.transform.flip(pygame.image.load(os.path.join(IMGS_PATH, "Arrow Inactive.png")), True, False),
+              pygame.transform.flip(pygame.image.load(os.path.join(IMGS_PATH, "Arrow Active.png")), True, False),
+              pygame.transform.flip(pygame.image.load(os.path.join(IMGS_PATH, "Arrow Pressed.png")), True, False)]
+
+
+LOCKED_THUMBNAIL = pygame.image.load(os.path.join(IMGS_PATH, "World 1 Inactive.png"))
+
 # Fonts
 

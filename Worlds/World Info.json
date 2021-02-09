@@ -1,0 +1,28 @@
+{
+    "Worlds": [
+        {
+            "World": 1,
+            "Name": "Bill vs the world",
+            "Unlocked": true,
+            "Best time": 0
+        },
+        {
+            "World": 2,
+            "Name": "Bill vs the world",
+            "Unlocked": true,
+            "Best time": 0
+        },
+        {
+            "World": 3,
+            "Name": "Bill vs the world",
+            "Unlocked": true,
+            "Best time": 0
+        },
+        {
+            "World": 4,
+            "Name": "Bill vs the world",
+            "Unlocked": false,
+            "Best time": 0
+        }
+    ]
+}
