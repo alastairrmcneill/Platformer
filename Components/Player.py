@@ -29,8 +29,9 @@ class Player:
         self.level_complete = False
         self.on_platform = False
         self.platform_vel = 0
+        self.double_jump_enabled = False
         self.can_jump = True
-        self.can_double_jump = True
+        self.can_double_jump = self.double_jump_enabled
         self.jump_pressed = False
 
     def update(self):
@@ -173,7 +174,7 @@ class Player:
                     new_dy = tile[1].top - self.rect.bottom
                     self.vel_y = 0
                     self.can_jump = True
-                    self.can_double_jump = True
+                    self.can_double_jump = self.double_jump_enabled
 
         return new_dx, new_dy
 
@@ -214,7 +215,7 @@ class Player:
                         self.rect.bottom = platform.rect.top
                         self.vel_y = 0
                         self.can_jump = True
-                        self.can_double_jump = True
+                        self.can_double_jump = self.double_jump_enabled
                         new_dy = 0
                         #move sideways with the platform
                         self.rect.x += platform.moveDirection * platform.vel
@@ -230,7 +231,7 @@ class Player:
                         self.rect.bottom = platform.rect.top
                         self.vel_y = 0
                         self.can_jump = True
-                        self.can_double_jump = True
+                        self.can_double_jump = self.double_jump_enabled
                         self.on_platform = True
                         self.platform_vel = platform.vel
                         new_dy = 0
