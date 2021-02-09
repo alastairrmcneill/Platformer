@@ -97,3 +97,12 @@ class Game(Scene):
 
         # Write time to this game file if faster
 
+        # Update player file
+        path = os.path.join(WORLDS_PATH, "Player Skills.json")
+        with open(path, "r+") as f:
+            data = json.load(f)
+            data["Current world"] = self.world_num + 1
+            f.seek(0)
+            json.dump(data, f, indent = 4)
+            f.truncate()
+

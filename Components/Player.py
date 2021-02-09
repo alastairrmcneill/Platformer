@@ -1,4 +1,5 @@
 import pygame
+import json
 from Components.Projectile import Projectile
 from Components.Constants import WHITE, RED, WIN_HEIGHT, TILE_SIZE, BILL_WALKING_IMGS, SYRINGE_IMG
 
@@ -29,10 +30,21 @@ class Player:
         self.level_complete = False
         self.on_platform = False
         self.platform_vel = 0
+        self.skills = {}
+        self.load_skills()
         self.double_jump_enabled = False
         self.can_jump = True
-        self.can_double_jump = self.double_jump_enabled
+        self.can_double_jump = self.skills["Double jump"]
         self.jump_pressed = False
+
+    def load_skills(self):
+        with open("Worlds/Player Skills.json", "r") as jsonFile:
+            data = json.load(jsonFile)
+
+        for key in data["Skills"]:
+            result = data["Skills"][key] <= data["Current world"]
+            self.skills[key] = result
+        print(self.skills)
 
     def update(self):
         dx = 0
@@ -174,7 +186,7 @@ class Player:
                     new_dy = tile[1].top - self.rect.bottom
                     self.vel_y = 0
                     self.can_jump = True
-                    self.can_double_jump = self.double_jump_enabled
+                    self.can_double_jump = self.skills["Double jump"]
 
         return new_dx, new_dy
 
@@ -215,7 +227,7 @@ class Player:
                         self.rect.bottom = platform.rect.top
                         self.vel_y = 0
                         self.can_jump = True
-                        self.can_double_jump = self.double_jump_enabled
+                        self.can_double_jump = self.skills["Double jump"]
                         new_dy = 0
                         #move sideways with the platform
                         self.rect.x += platform.moveDirection * platform.vel
@@ -231,7 +243,7 @@ class Player:
                         self.rect.bottom = platform.rect.top
                         self.vel_y = 0
                         self.can_jump = True
-                        self.can_double_jump = self.double_jump_enabled
+                        self.can_double_jump = self.skills["Double jump"]
                         self.on_platform = True
                         self.platform_vel = platform.vel
                         new_dy = 0
