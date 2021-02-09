@@ -64,7 +64,7 @@ class Game(Scene):
     def next_level(self):
         self.level += 1
         self.world = World(self.world_num, self.level)
-        self.player = Player(self.world)
+        self.player.reset(self.world)
         if self.world.tiles == []:
             self.world_complete()
         self.camera.reset(self.player)
