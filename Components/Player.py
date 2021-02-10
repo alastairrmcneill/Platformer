@@ -44,7 +44,6 @@ class Player:
         for key in data["Skills"]:
             result = data["Skills"][key] <= data["Current world"]
             self.skills[key] = result
-        print(self.skills)
 
     def update(self):
         dx = 0

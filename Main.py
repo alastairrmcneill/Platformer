@@ -5,6 +5,7 @@ from Scenes.Main_menu import Main_menu
 from Scenes.Game import Game
 from Scenes.Win import Win
 from Scenes.Lost import Lost
+from Scenes.Pause_menu import Pause_menu
 from Components.Constants import WIN_WIDTH, WIN_HEIGHT
 
 WIN = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
@@ -14,7 +15,8 @@ scene_dict = {"Splash": Splash(),
               "Main menu": Main_menu(),
               "Game": Game(),
               "Win": Win(),
-              "Lost": Lost ()}
+              "Lost": Lost (),
+              "Pause menu": Pause_menu()}
 
 starting_scene = "Splash"
 

@@ -21,12 +21,22 @@ class Game(Scene):
 
     def startup(self, persist):
         self.persist = persist
-        self.start_time = datetime.now().replace(microsecond = 0)
-        self.world_num = self.persist["World"]
-        self.reset()
+        if self.persist["State"] == "New":
+            self.start_time = datetime.now().replace(microsecond = 0)
+            self.world_num = self.persist["World"]
+            self.reset()
+        elif self.persist["State"] == "Restart":
+            self.reset()
+        elif self.persist["State"] == "Continue":
+            pass
+
 
     def cleanup(self):
         self.done = False
+        if self.next == "Pause menu":
+            self.persist = {"Game": self}
+            return self.persist
+
         end_time = datetime.now().replace(microsecond = 0)
         game_time = end_time - self.start_time
         self.persist = {"Game time": game_time}
@@ -36,6 +46,9 @@ class Game(Scene):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_r]:
             self.reset()
+        if keys[pygame.K_p]:
+            self.done = True
+            self.next = "Pause menu"
 
     def update(self):
         self.world.update()
@@ -71,7 +84,6 @@ class Game(Scene):
 
     def reset_level(self):
         self.player.lives -= 1
-        print(self.player.lives)
         if self.player.lives == 0:
             self.done = True
             self.next = "Lost"

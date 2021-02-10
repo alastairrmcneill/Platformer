@@ -85,6 +85,17 @@ ARROW_LEFT = [pygame.transform.flip(pygame.image.load(os.path.join(IMGS_PATH, "A
               pygame.transform.flip(pygame.image.load(os.path.join(IMGS_PATH, "Arrow Active.png")), True, False),
               pygame.transform.flip(pygame.image.load(os.path.join(IMGS_PATH, "Arrow Pressed.png")), True, False)]
 
+MENU_BUTTON_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Menu Inactive.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "Menu Active.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "Menu Pressed.png"))]
+
+RESTART_BUTTON_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Restart Inactive.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "Restart Active.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "Restart Pressed.png"))]
+
+RESUME_BUTTON_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Resume Inactive.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "Resume Active.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "Resume Pressed.png"))]
 
 LOCKED_THUMBNAIL = pygame.image.load(os.path.join(IMGS_PATH, "World 1 Inactive.png"))
 
