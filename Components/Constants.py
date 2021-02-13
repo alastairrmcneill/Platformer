@@ -66,12 +66,17 @@ BULLET_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Bullet.png"))
 DOOR_IMGS = [pygame.image.load(os.path.join(IMGS_PATH, "Door closed.png")),
              pygame.image.load(os.path.join(IMGS_PATH, "Door open.png"))]
 
+PRESSURE_PAD_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Pressure Pad.png"))
+
 WIN_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Win.png"))
 GAME_OVER_IMG = pygame.image.load(os.path.join(IMGS_PATH, "Game over.png"))
 
 WORLD_THUMBNAILS = [[pygame.image.load(os.path.join(IMGS_PATH, "World 1 Inactive.png")),
                      pygame.image.load(os.path.join(IMGS_PATH, "World 1 Active.png")),
                      pygame.image.load(os.path.join(IMGS_PATH, "World 1 Pressed.png"))],
+                    [pygame.image.load(os.path.join(IMGS_PATH, "World 2 Inactive.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 2 Active.png")),
+                     pygame.image.load(os.path.join(IMGS_PATH, "World 2 Pressed.png"))],
                     [pygame.image.load(os.path.join(IMGS_PATH, "World 2 Inactive.png")),
                      pygame.image.load(os.path.join(IMGS_PATH, "World 2 Active.png")),
                      pygame.image.load(os.path.join(IMGS_PATH, "World 2 Pressed.png"))],

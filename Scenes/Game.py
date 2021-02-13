@@ -14,7 +14,7 @@ class Game(Scene):
         self.life_img = LIFE_IMG
 
     def reset(self):
-        self.level = 4
+        self.level = 1
         self.world = World(self.world_num, self.level)
         self.player = Player(self.world)
         self.camera = Camera(self.player)

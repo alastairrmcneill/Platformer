@@ -5,6 +5,7 @@ from Components.Enemy import Enemy
 from Components.Exit import Exit
 from Components.Platform import Platform
 from Components.Life import Life
+from Components.PressurePad import PressurePad
 from Components.Constants import OUTER_BRICK_IMG, BRICK_IMG, BRICK_TOP_IMG, TILE_SIZE
 
 
@@ -29,6 +30,7 @@ class World:
         self.exit_group = pygame.sprite.Group()
         self.life_group = pygame.sprite.Group()
         self.platform_group = pygame.sprite.Group()
+        self.pad_group = pygame.sprite.Group()
 
         row_count = 0
         for row in self.world_data:
@@ -69,6 +71,9 @@ class World:
                 if elem == 8:
                     life = Life(col_count * TILE_SIZE, row_count * TILE_SIZE)
                     self.life_group.add(life)
+                if elem == 9:
+                    pad = PressurePad(col_count * TILE_SIZE + 4, row_count * TILE_SIZE + 21)
+                    self.pad_group.add(pad)
                 col_count += 1
             row_count += 1
 
@@ -82,6 +87,9 @@ class World:
 
 
     def draw(self, screen, camera):
+
+        for sprite in self.pad_group:
+            screen.blit(sprite.image, (sprite.rect.x - camera.offset.x, sprite.rect.y - camera.offset.y))
         for tile in self.tiles:
             x = tile[1].x
             y = tile[1].y
@@ -97,7 +105,6 @@ class World:
             screen.blit(sprite.image, (sprite.rect.x - camera.offset.x, sprite.rect.y - camera.offset.y))
         for sprite in self.life_group:
             screen.blit(sprite.image, (sprite.rect.x - camera.offset.x, sprite.rect.y - camera.offset.y))
-
 
     def load_level_data(self, world_num):
         with open(f"Worlds/World {world_num}.json", "r") as jsonFile:

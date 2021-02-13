@@ -127,6 +127,14 @@ class Player:
             if self.lives > 3:
                 self.lives = 3
 
+        # Check for collision with pressure pad
+        for pad in self.world.pad_group:
+            hit = pygame.sprite.spritecollide(self, self.world.pad_group, False)
+            if hit:
+                pad.apply()
+            else:
+                pad.reset()
+
 
         # Animate
         self.animate(dx, dy)
