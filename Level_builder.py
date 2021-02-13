@@ -104,6 +104,7 @@ def save_world(world):
 def main():
     run = True
     save_buton = Button(650, 100, SAVE)
+    tile = 0
     while run:
         CLOCK.tick(30)
 
@@ -111,14 +112,30 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
+
+            if pygame.mouse.get_pressed()[0]:
                 pos = pygame.mouse.get_pos()
                 if pos[0] < 600:
                     row, col = get_row_col_from_pos(pos)
+                    WORLD[row][col] = tile
 
-                    WORLD[row][col] += 1
-                    if WORLD[row][col] > 7:
-                        WORLD[row][col] = 0
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_0]:
+            tile = 0
+        if keys[pygame.K_1]:
+            tile = 1
+        if keys[pygame.K_2]:
+            tile = 2
+        if keys[pygame.K_3]:
+            tile = 3
+        if keys[pygame.K_4]:
+            tile = 4
+        if keys[pygame.K_5]:
+            tile = 5
+        if keys[pygame.K_6]:
+            tile = 6
+        if keys[pygame.K_7]:
+            tile = 7
 
         if save_buton.draw():
             run = False
