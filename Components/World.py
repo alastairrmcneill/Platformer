@@ -72,7 +72,8 @@ class World:
                     life = Life(col_count * TILE_SIZE, row_count * TILE_SIZE)
                     self.life_group.add(life)
                 if elem == 9:
-                    pad = PressurePad(col_count * TILE_SIZE + 4, row_count * TILE_SIZE + 21)
+                    action = self.pad_actions.pop(0)
+                    pad = PressurePad(self, col_count * TILE_SIZE + 4, row_count * TILE_SIZE + 21, action)
                     self.pad_group.add(pad)
                 col_count += 1
             row_count += 1
@@ -116,6 +117,7 @@ class World:
                 self.world_data = level["World Data"]
                 self.enemy_paths = level["Enemy Walking Paths"]
                 self.platform_paths = level["Platform Movement Paths"]
+                self.pad_actions = level["Pressure Pad Actions"]
                 pos = level["Starting Position"]
                 self.player_starting_x = pos[0]
                 self.player_starting_y = pos[1]

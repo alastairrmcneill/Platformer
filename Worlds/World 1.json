@@ -23,7 +23,8 @@
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
       "Starting Position": [50,500],
       "Enemy Walking Paths":[[-40, 10, -1], [-1, 150, 1]],
-      "Platform Movement Paths": []
+      "Platform Movement Paths": [],
+      "Pressure Pad Actions": []
     },
     {"Level": 2,
       "World Data": [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -48,7 +49,8 @@
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
       "Starting Position": [50,500],
       "Enemy Walking Paths":[[-10, 40, 1], [-30, 120, -1], [-120, 30, 1]],
-      "Platform Movement Paths": []
+      "Platform Movement Paths": [],
+      "Pressure Pad Actions": []
     },
     {"Level": 3,
       "World Data": [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -73,7 +75,8 @@
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
       "Starting Position": [50, 500],
       "Enemy Walking Paths":[[-75, 10, -1]],
-      "Platform Movement Paths": []
+      "Platform Movement Paths": [],
+      "Pressure Pad Actions": []
     },
     {"Level": 4,
     "World Data": [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -98,7 +101,8 @@
     [1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1]],
     "Starting Position": [50, 50],
     "Enemy Walking Paths":[[-15, 15, -1], [-15, 15, 1], [-15, 15, -1]],
-    "Platform Movement Paths": []
+    "Platform Movement Paths": [],
+    "Pressure Pad Actions": []
     },
       {"Level": 5,
         "World Data": [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -123,7 +127,8 @@
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
         "Starting Position": [50, 50],
         "Enemy Walking Paths":[[-15, 15, -1], [-15, 15, 1], [-15, 15, -1]],
-        "Platform Movement Paths": []
+        "Platform Movement Paths": [],
+        "Pressure Pad Actions": []
         },
         {"Level": 6,
           "World Data": [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -148,7 +153,8 @@
           [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
           "Starting Position": [50, 50],
           "Enemy Walking Paths":[[-15, 45, 1],[-15, 45, 1],[-15, 45, 1],[-15, 45, 1],[-15, 45, 1],[-15, 45, 1],[-15, 45, 1],[-15, 45, 1]],
-          "Platform Movement Paths": []
+          "Platform Movement Paths": [],
+          "Pressure Pad Actions": []
           }
     ]
 }
