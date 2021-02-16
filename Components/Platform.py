@@ -35,15 +35,3 @@ class Platform(pygame.sprite.Sprite):
             self.moveDirection *= -1
         elif self.moveCount < self.left:
             self.moveDirection *= -1
-
-
-
-
-
-
-
-
-
-
-
-

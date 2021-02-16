@@ -14,6 +14,7 @@ class Player:
         self.syringe = SYRINGE_IMG
         self.syringe_img = self.syringe
         self.IMGS = BILL_WALKING_IMGS
+        self.croching_IMGS = BILL_WALKING_IMGS
         self.image = self.IMGS[0]
         self.rect = self.image.get_rect()
         self.rect.x = self.world.player_starting_x
@@ -22,6 +23,7 @@ class Player:
         self.animateCount = 0
         self.animateLoop = 3
         self.vel_y = 0
+        self.vel_x = 5
         self.jumpForce = 0
         self.direction = 1
         self.bulletCount = 0
@@ -36,6 +38,9 @@ class Player:
         self.can_jump = True
         self.can_double_jump = self.skills["Double jump"]
         self.jump_pressed = False
+        self.crouching = False
+        self.trapped = False
+
 
     def load_skills(self):
         with open("Worlds/Player Skills.json", "r") as jsonFile:
@@ -60,10 +65,26 @@ class Player:
             self.bullet_group.add(bullet)
             self.shooting = True
 
-        if (keys[pygame.K_UP] or keys[pygame.K_w]) and (self.can_jump or self.can_double_jump) and not self.jump_pressed:
+        if keys[pygame.K_DOWN] or keys[pygame.K_s]:
+            if not self.crouching:
+                self.rect.top += 13
+                self.rect.height = 29
+            self.crouching = True
+            if self.on_floor:
+                self.vel_x = 2
+
+        if not (keys[pygame.K_DOWN] or keys[pygame.K_s]):
+            if self.crouching:
+                self.rect.top -= 13
+                self.rect.height = 42
+            self.crouching = False
+            self.vel_x = 5
+
+        if (keys[pygame.K_UP] or keys[pygame.K_w]) and (self.can_jump or self.can_double_jump) and not self.jump_pressed and not self.crouching:
             if self.can_jump:
                 # Implement jump, set can_jump to be false, set jump_pressed to True
                 self.on_platform = False
+                self.on_floor = False
                 self.jumpForce += 1
                 if self.jumpForce == 1:
                     self.vel_y = -10
@@ -76,6 +97,7 @@ class Player:
             elif self.can_double_jump:
                 # Implement jump set can_double_jump to be false and set jump_pressed to be true
                 self.on_platform = False
+                self.on_floor = False
                 self.jumpForce -= 1
                 if self.jumpForce == -1:
                     self.vel_y = -10
@@ -93,11 +115,14 @@ class Player:
             self.jumpForce = 0
             self.jump_pressed = False
 
+        if self.trapped:
+            self.vel_x = 2
+
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-            dx += 5
+            dx += self.vel_x
             self.direction = 1
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
-            dx -= 5
+            dx -= self.vel_x
             self.direction = -1
 
         # Add gravity
@@ -172,6 +197,9 @@ class Player:
     def check_tile_collisions(self, dx, dy):
         new_dx = dx
         new_dy = dy
+        self.on_floor = False
+        self.on_ceiling = False
+        self.trapped = False
 
         for tile in self.world.tiles:
             # check x direction
@@ -184,16 +212,30 @@ class Player:
                 if self.rect.centerx > tile[1].centerx:
                     new_dx = tile[1].right - self.rect.left
 
-            # Check in y direction
-            if tile[1].colliderect(self.rect.x + new_dx, self.rect.y + dy, self.rect.width, self.rect.height):
+            # Check in y direction (include new_dx??)
+            if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.rect.width, self.rect.height):
                 if self.vel_y < 0:
                     new_dy = tile[1].bottom - self.rect.top
                     self.vel_y = 0
+                    self.on_ceiling = True
                 elif self.vel_y > 0:
+                    if self.rect.top < tile[1].bottom and self.rect.top > tile[1].top:
+                        self.on_ceiling = True
+                    self.on_floor = True
                     new_dy = tile[1].top - self.rect.bottom
                     self.vel_y = 0
                     self.can_jump = True
                     self.can_double_jump = self.skills["Double jump"]
+
+        if self.on_ceiling and self.on_floor:
+            new_dx = dx
+            new_dy = 0
+            self.rect.top += 13
+            self.rect.height = 29
+            self.crouching = True
+            self.vel_x = 2
+            self.trapped = True
+
 
         return new_dx, new_dy
 
@@ -304,6 +346,12 @@ class Player:
             self.image = pygame.transform.flip(self.IMGS[index], True, False)
         elif self.direction == 1:
             self.image = self.IMGS[index]
+
+        if self.crouching:
+            self.image = pygame.transform.scale(self.image, (self.rect.width, self.rect.height))
+        else:
+            self.image = self.image
+
 
 
     def bullet_update(self):

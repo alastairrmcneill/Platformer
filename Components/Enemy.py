@@ -44,15 +44,3 @@ class Enemy(pygame.sprite.Sprite):
             self.image = pygame.transform.flip(self.IMGS[index], True, False)
         elif self.moveDirection == 1:
             self.image = self.IMGS[index]
-
-
-
-
-
-
-
-
-
-
-
-
