@@ -18,6 +18,9 @@ class Enemy(pygame.sprite.Sprite):
         self.animateCount = 0
         self.animateLoop = 3
 
+        self.hurt_box = None
+        self.update_hurt_box()
+
     def update(self):
         self.rect.x += self.moveDirection
         self.moveCount += self.moveDirection
@@ -45,14 +48,12 @@ class Enemy(pygame.sprite.Sprite):
         elif self.moveDirection == 1:
             self.image = self.IMGS[index]
 
+        self.update_hurt_box()
 
 
-
-
-
-
-
-
-
-
-
+    def update_hurt_box(self):
+        x = self.rect.x + 3
+        y = self.rect.y
+        width = self.rect.width - 6
+        height = 5
+        self.hurt_box = pygame.Rect(x, y, width, height)

@@ -36,6 +36,8 @@ class Player:
         self.can_jump = True
         self.can_double_jump = self.skills["Double jump"]
         self.jump_pressed = False
+        self.hurt_box = None
+        self.update_hurt_box()
 
     def load_skills(self):
         with open("Worlds/Player Skills.json", "r") as jsonFile:
@@ -100,6 +102,12 @@ class Player:
             dx -= 5
             self.direction = -1
 
+        # Check for head bop with enemies
+        for sprite in self.world.enemy_group:
+            if sprite.hurt_box.colliderect(self.hurt_box):
+                sprite.kill()
+                self.vel_y = -4
+
         # Add gravity
         dy = self.add_gravity(dy)
 
@@ -142,6 +150,7 @@ class Player:
         # Update player pos
         self.rect.y += dy
         self.rect.x += dx
+        self.update_hurt_box()
 
         # Update syringe pos
         self.update_syringe()
@@ -305,7 +314,6 @@ class Player:
         elif self.direction == 1:
             self.image = self.IMGS[index]
 
-
     def bullet_update(self):
         self.bullet_group.update()
 
@@ -335,3 +343,10 @@ class Player:
             self.syringe_img = pygame.transform.flip(self.syringe, True, False)
 
         self.syringe_rect.y = self.rect.y + 18
+
+    def update_hurt_box(self):
+        x = self.rect.x
+        y = self.rect.bottom - 11
+        width = self.rect.width
+        height = 11
+        self.hurt_box = pygame.Rect(x, y, width, height)
